@@ -1,2 +1,0 @@
-#Contains API keys
-/js/config.js
