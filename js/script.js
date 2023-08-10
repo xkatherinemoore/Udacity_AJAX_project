@@ -12,9 +12,12 @@ function loadData() {
     $nytElem.text("");
 
     // load streetview
+    //Pulls form values and converts to URL-encoded format
+    var $streetName = $('#street').val().replaceAll(" ", "+");
+    var $cityName = $('#city').val().replaceAll(" ", "+");
+    $body.append('<img class="bgimage" src="http://maps.googleapis.com/maps/api/streetview?size=1200x600&location='+ $streetName + "+" + $cityName + '" />');
 
-    // YOUR CODE GOES HERE!
-
+    console.log($streetName, $cityName);
     return false;
 };
 
