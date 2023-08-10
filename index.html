@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <title>Your Moving Companion</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/config.js"></script>
 </head>
 <body>
 
@@ -17,6 +20,10 @@
 
     <h2 id="greeting" class="greeting">Where do you want to live?</h2>
 
+    <div class="streetview-container">
+        <h3 id="streetview-header">Explore the area</h3>
+        <div id="map"></div>
+    </div>
 
     <div class="wikipedia-container">
         <h3 id="wikipedia-header">Relevant Wikipedia Links</h3>
@@ -29,8 +36,7 @@
         <ul id="nytimes-articles" class="article-list">What's going on in your new city? Enter an address and hit submit and the NY Times will tell you here!</div>
     </div>
 
-    <script src="js/libs/jquery.min.js"></script>
-    <script src="js/config.js"></script>
+    <script src="js/libs/jquery.min.js"></script>    
     <script src="js/script.js"></script>
 </body>
 </html>

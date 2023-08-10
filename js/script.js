@@ -1,7 +1,5 @@
-import 
 function loadData() {
 
-    var $body = $('body');
     var $wikiElem = $('#wikipedia-links');
     var $nytHeaderElem = $('#nytimes-header');
     var $nytElem = $('#nytimes-articles');
@@ -11,16 +9,31 @@ function loadData() {
     $wikiElem.text("");
     $nytElem.text("");
 
-    // load streetview
-    //Pulls form values and converts to URL-encoded format
-    var $streetName = $('#street').val().replaceAll(" ", "+");
-    var $cityName = $('#city').val().replaceAll(" ", "+");
-    $body.append('<img class="bgimage" src="http://maps.googleapis.com/maps/api/streetview?size=1200x600&location='+ $streetName + "+" + $cityName + '" />');
+    // Google Maps API
+    //Pulls user input, converts to coordinates, and creates streetview map
+    $streetName = $('#street').val().replaceAll(" ", "+");
+    $cityName = $('#city').val();
+    let address = $streetName + "+" + $cityName;
+    let geocodeURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKeys.googlemaps}`;
+    
+    $.getJSON(geocodeURL, (GeocoderResult, status) => {
+            locationObj = GeocoderResult.results[0].geometry.location;
+            renderMap(locationObj['lat'], locationObj['lng']);
+    })
 
-    console.log($streetName, $cityName);
+
+    $.getJSON(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${$cityName}&api-key=${apiKeys.nytimes}`, (data) => {
+        console.log(data);
+
+    });
     return false;
 };
 
 $('#form-container').submit(loadData);
+
+//Adds iframe with map data
+function renderMap(lat, long) {
+    $('#map').append(`<iframe width="450" height="250" frameborder="0" style="border:0" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/streetview?key=${apiKeys.googlemaps}&location=${lat}, ${long}" allowfullscreen></iframe>`);
+}
 
 // loadData();
